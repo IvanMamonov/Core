@@ -1,0 +1,375 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="Хранилище ComputerClubModel" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="BronPc">
+          <Key>
+            <PropertyRef Name="idBronPc" />
+          </Key>
+          <Property Name="idBronPc" Type="int" Nullable="false" />
+          <Property Name="NumberTable" Type="varchar" MaxLength="50" />
+          <Property Name="idUsers" Type="int" />
+          <Property Name="idPc" Type="int" />
+        </EntityType>
+        <EntityType Name="Food">
+          <Key>
+            <PropertyRef Name="idFood" />
+          </Key>
+          <Property Name="idFood" Type="int" Nullable="false" />
+          <Property Name="NameFood" Type="varchar" MaxLength="50" />
+          <Property Name="Calories" Type="int" />
+        </EntityType>
+        <EntityType Name="Pc">
+          <Key>
+            <PropertyRef Name="idPc" />
+          </Key>
+          <Property Name="idPc" Type="int" Nullable="false" />
+          <Property Name="characteristic" Type="varchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="Type">
+          <Key>
+            <PropertyRef Name="idType" />
+          </Key>
+          <Property Name="idType" Type="int" Nullable="false" />
+          <Property Name="title" Type="varchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="Users">
+          <Key>
+            <PropertyRef Name="idUsers" />
+          </Key>
+          <Property Name="idUsers" Type="int" Nullable="false" />
+          <Property Name="Fullname" Type="varchar" MaxLength="50" />
+          <Property Name="idType" Type="int" />
+        </EntityType>
+        <EntityType Name="ZakazFood">
+          <Key>
+            <PropertyRef Name="idZakazFood" />
+          </Key>
+          <Property Name="idZakazFood" Type="int" Nullable="false" />
+          <Property Name="idFood" Type="int" />
+          <Property Name="idUsers" Type="int" />
+        </EntityType>
+        <Association Name="FK_BronPc_Pc">
+          <End Role="Pc" Type="Self.Pc" Multiplicity="0..1" />
+          <End Role="BronPc" Type="Self.BronPc" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Pc">
+              <PropertyRef Name="idPc" />
+            </Principal>
+            <Dependent Role="BronPc">
+              <PropertyRef Name="idPc" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_BronPc_Users">
+          <End Role="Users" Type="Self.Users" Multiplicity="0..1" />
+          <End Role="BronPc" Type="Self.BronPc" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Users">
+              <PropertyRef Name="idUsers" />
+            </Principal>
+            <Dependent Role="BronPc">
+              <PropertyRef Name="idUsers" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Users_Type">
+          <End Role="Type" Type="Self.Type" Multiplicity="0..1" />
+          <End Role="Users" Type="Self.Users" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Type">
+              <PropertyRef Name="idType" />
+            </Principal>
+            <Dependent Role="Users">
+              <PropertyRef Name="idType" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ZakazFood_Food">
+          <End Role="Food" Type="Self.Food" Multiplicity="0..1" />
+          <End Role="ZakazFood" Type="Self.ZakazFood" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Food">
+              <PropertyRef Name="idFood" />
+            </Principal>
+            <Dependent Role="ZakazFood">
+              <PropertyRef Name="idFood" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ZakazFood_Users">
+          <End Role="Users" Type="Self.Users" Multiplicity="0..1" />
+          <End Role="ZakazFood" Type="Self.ZakazFood" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Users">
+              <PropertyRef Name="idUsers" />
+            </Principal>
+            <Dependent Role="ZakazFood">
+              <PropertyRef Name="idUsers" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="Хранилище ComputerClubModelContainer">
+          <EntitySet Name="BronPc" EntityType="Self.BronPc" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Food" EntityType="Self.Food" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Pc" EntityType="Self.Pc" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Type" EntityType="Self.Type" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Users" EntityType="Self.Users" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ZakazFood" EntityType="Self.ZakazFood" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_BronPc_Pc" Association="Self.FK_BronPc_Pc">
+            <End Role="Pc" EntitySet="Pc" />
+            <End Role="BronPc" EntitySet="BronPc" />
+          </AssociationSet>
+          <AssociationSet Name="FK_BronPc_Users" Association="Self.FK_BronPc_Users">
+            <End Role="Users" EntitySet="Users" />
+            <End Role="BronPc" EntitySet="BronPc" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Users_Type" Association="Self.FK_Users_Type">
+            <End Role="Type" EntitySet="Type" />
+            <End Role="Users" EntitySet="Users" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ZakazFood_Food" Association="Self.FK_ZakazFood_Food">
+            <End Role="Food" EntitySet="Food" />
+            <End Role="ZakazFood" EntitySet="ZakazFood" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ZakazFood_Users" Association="Self.FK_ZakazFood_Users">
+            <End Role="Users" EntitySet="Users" />
+            <End Role="ZakazFood" EntitySet="ZakazFood" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="ComputerClubModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="BronPc">
+          <Key>
+            <PropertyRef Name="idBronPc" />
+          </Key>
+          <Property Name="idBronPc" Type="Int32" Nullable="false" />
+          <Property Name="NumberTable" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="idUsers" Type="Int32" />
+          <Property Name="idPc" Type="Int32" />
+          <NavigationProperty Name="Pc" Relationship="Self.FK_BronPc_Pc" FromRole="BronPc" ToRole="Pc" />
+          <NavigationProperty Name="Users" Relationship="Self.FK_BronPc_Users" FromRole="BronPc" ToRole="Users" />
+        </EntityType>
+        <EntityType Name="Food">
+          <Key>
+            <PropertyRef Name="idFood" />
+          </Key>
+          <Property Name="idFood" Type="Int32" Nullable="false" />
+          <Property Name="NameFood" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Calories" Type="Int32" />
+          <NavigationProperty Name="ZakazFood" Relationship="Self.FK_ZakazFood_Food" FromRole="Food" ToRole="ZakazFood" />
+        </EntityType>
+        <EntityType Name="Pc">
+          <Key>
+            <PropertyRef Name="idPc" />
+          </Key>
+          <Property Name="idPc" Type="Int32" Nullable="false" />
+          <Property Name="characteristic" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="BronPc" Relationship="Self.FK_BronPc_Pc" FromRole="Pc" ToRole="BronPc" />
+        </EntityType>
+        <EntityType Name="Type">
+          <Key>
+            <PropertyRef Name="idType" />
+          </Key>
+          <Property Name="idType" Type="Int32" Nullable="false" />
+          <Property Name="title" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="Users" Relationship="Self.FK_Users_Type" FromRole="Type" ToRole="Users" />
+        </EntityType>
+        <EntityType Name="Users">
+          <Key>
+            <PropertyRef Name="idUsers" />
+          </Key>
+          <Property Name="idUsers" Type="Int32" Nullable="false" />
+          <Property Name="Fullname" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="idType" Type="Int32" />
+          <NavigationProperty Name="BronPc" Relationship="Self.FK_BronPc_Users" FromRole="Users" ToRole="BronPc" />
+          <NavigationProperty Name="Type" Relationship="Self.FK_Users_Type" FromRole="Users" ToRole="Type" />
+          <NavigationProperty Name="ZakazFood" Relationship="Self.FK_ZakazFood_Users" FromRole="Users" ToRole="ZakazFood" />
+        </EntityType>
+        <EntityType Name="ZakazFood">
+          <Key>
+            <PropertyRef Name="idZakazFood" />
+          </Key>
+          <Property Name="idZakazFood" Type="Int32" Nullable="false" />
+          <Property Name="idFood" Type="Int32" />
+          <Property Name="idUsers" Type="Int32" />
+          <NavigationProperty Name="Food" Relationship="Self.FK_ZakazFood_Food" FromRole="ZakazFood" ToRole="Food" />
+          <NavigationProperty Name="Users" Relationship="Self.FK_ZakazFood_Users" FromRole="ZakazFood" ToRole="Users" />
+        </EntityType>
+        <Association Name="FK_BronPc_Pc">
+          <End Role="Pc" Type="Self.Pc" Multiplicity="0..1" />
+          <End Role="BronPc" Type="Self.BronPc" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Pc">
+              <PropertyRef Name="idPc" />
+            </Principal>
+            <Dependent Role="BronPc">
+              <PropertyRef Name="idPc" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_BronPc_Users">
+          <End Role="Users" Type="Self.Users" Multiplicity="0..1" />
+          <End Role="BronPc" Type="Self.BronPc" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Users">
+              <PropertyRef Name="idUsers" />
+            </Principal>
+            <Dependent Role="BronPc">
+              <PropertyRef Name="idUsers" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ZakazFood_Food">
+          <End Role="Food" Type="Self.Food" Multiplicity="0..1" />
+          <End Role="ZakazFood" Type="Self.ZakazFood" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Food">
+              <PropertyRef Name="idFood" />
+            </Principal>
+            <Dependent Role="ZakazFood">
+              <PropertyRef Name="idFood" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Users_Type">
+          <End Role="Type" Type="Self.Type" Multiplicity="0..1" />
+          <End Role="Users" Type="Self.Users" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Type">
+              <PropertyRef Name="idType" />
+            </Principal>
+            <Dependent Role="Users">
+              <PropertyRef Name="idType" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ZakazFood_Users">
+          <End Role="Users" Type="Self.Users" Multiplicity="0..1" />
+          <End Role="ZakazFood" Type="Self.ZakazFood" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Users">
+              <PropertyRef Name="idUsers" />
+            </Principal>
+            <Dependent Role="ZakazFood">
+              <PropertyRef Name="idUsers" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="ComputerClubEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="BronPc" EntityType="Self.BronPc" />
+          <EntitySet Name="Food" EntityType="Self.Food" />
+          <EntitySet Name="Pc" EntityType="Self.Pc" />
+          <EntitySet Name="Type" EntityType="Self.Type" />
+          <EntitySet Name="Users" EntityType="Self.Users" />
+          <EntitySet Name="ZakazFood" EntityType="Self.ZakazFood" />
+          <AssociationSet Name="FK_BronPc_Pc" Association="Self.FK_BronPc_Pc">
+            <End Role="Pc" EntitySet="Pc" />
+            <End Role="BronPc" EntitySet="BronPc" />
+          </AssociationSet>
+          <AssociationSet Name="FK_BronPc_Users" Association="Self.FK_BronPc_Users">
+            <End Role="Users" EntitySet="Users" />
+            <End Role="BronPc" EntitySet="BronPc" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ZakazFood_Food" Association="Self.FK_ZakazFood_Food">
+            <End Role="Food" EntitySet="Food" />
+            <End Role="ZakazFood" EntitySet="ZakazFood" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Users_Type" Association="Self.FK_Users_Type">
+            <End Role="Type" EntitySet="Type" />
+            <End Role="Users" EntitySet="Users" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ZakazFood_Users" Association="Self.FK_ZakazFood_Users">
+            <End Role="Users" EntitySet="Users" />
+            <End Role="ZakazFood" EntitySet="ZakazFood" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="Хранилище ComputerClubModelContainer" CdmEntityContainer="ComputerClubEntities">
+          <EntitySetMapping Name="BronPc">
+            <EntityTypeMapping TypeName="ComputerClubModel.BronPc">
+              <MappingFragment StoreEntitySet="BronPc">
+                <ScalarProperty Name="idBronPc" ColumnName="idBronPc" />
+                <ScalarProperty Name="NumberTable" ColumnName="NumberTable" />
+                <ScalarProperty Name="idUsers" ColumnName="idUsers" />
+                <ScalarProperty Name="idPc" ColumnName="idPc" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Food">
+            <EntityTypeMapping TypeName="ComputerClubModel.Food">
+              <MappingFragment StoreEntitySet="Food">
+                <ScalarProperty Name="idFood" ColumnName="idFood" />
+                <ScalarProperty Name="NameFood" ColumnName="NameFood" />
+                <ScalarProperty Name="Calories" ColumnName="Calories" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Pc">
+            <EntityTypeMapping TypeName="ComputerClubModel.Pc">
+              <MappingFragment StoreEntitySet="Pc">
+                <ScalarProperty Name="idPc" ColumnName="idPc" />
+                <ScalarProperty Name="characteristic" ColumnName="characteristic" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Type">
+            <EntityTypeMapping TypeName="ComputerClubModel.Type">
+              <MappingFragment StoreEntitySet="Type">
+                <ScalarProperty Name="idType" ColumnName="idType" />
+                <ScalarProperty Name="title" ColumnName="title" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Users">
+            <EntityTypeMapping TypeName="ComputerClubModel.Users">
+              <MappingFragment StoreEntitySet="Users">
+                <ScalarProperty Name="idUsers" ColumnName="idUsers" />
+                <ScalarProperty Name="Fullname" ColumnName="Fullname" />
+                <ScalarProperty Name="idType" ColumnName="idType" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ZakazFood">
+            <EntityTypeMapping TypeName="ComputerClubModel.ZakazFood">
+              <MappingFragment StoreEntitySet="ZakazFood">
+                <ScalarProperty Name="idZakazFood" ColumnName="idZakazFood" />
+                <ScalarProperty Name="idFood" ColumnName="idFood" />
+                <ScalarProperty Name="idUsers" ColumnName="idUsers" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="Нет" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>
