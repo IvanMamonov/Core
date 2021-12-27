@@ -219,7 +219,7 @@ namespace Core
             List<BronPc> bronPcss = new List<BronPc>();
             foreach (var t in bronPcs)
             {
-                bronPcs.Add(
+                bronPcss.Add(
                     new BronPc
                     {
                         idBronPc = t.idBronPc,
@@ -234,7 +234,10 @@ namespace Core
         public static List<BronPc> GetBronPc(int idBronPc)
         {
             List<BronPc> bronPcs = GetBronPcs();
-            return bronPcs.Where(a => a.idBronPc == idBronPc).ToList();
+            var b = from i in bronPcs
+                    where i.idBronPc == idBronPc
+                    select i;
+            return b.ToList(); ;
         }
 
         public static bool AddNewBronPc(BronPc bronPc)
