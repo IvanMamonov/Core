@@ -339,7 +339,7 @@ namespace Core
                         Calories = t.Calories,
                     });
             }
-            return foods;
+            return foodss;
         }
 
         public static List<Food> GetFoods(int idFood)
@@ -352,6 +352,27 @@ namespace Core
         {
             try
             {
+                DBconnection.connection.Food.Add(food);
+                DBconnection.connection.SaveChanges();
+                return true;
+            }
+            catch
+            {
+                return false;
+            }
+        }
+        public static bool AddNewFood(int newidFood,
+        string newNameFood, int newCalories)
+        {
+            try
+            {
+                Food food = new Food()
+                {
+                    idFood = newidFood,
+                    NameFood = newNameFood,
+                    Calories = newCalories
+                };
+
                 DBconnection.connection.Food.Add(food);
                 DBconnection.connection.SaveChanges();
                 return true;
