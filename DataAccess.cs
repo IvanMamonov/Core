@@ -372,7 +372,6 @@ namespace Core
                     NameFood = newNameFood,
                     Calories = newCalories
                 };
-
                 DBconnection.connection.Food.Add(food);
                 DBconnection.connection.SaveChanges();
                 return true;
